@@ -3,6 +3,7 @@ import pytesseract
 import cv2
 import numpy as np
 import os
+import pySmartIdEngine
 
 pytesseract.pytesseract.tesseract_cmd = os.getcwd() + r'\Tesseract-OCR\tesseract.exe'
 preprocess = "thresh"
@@ -44,6 +45,7 @@ def img2text(image):
     tt = cv2.rectangle(gray, (300, 200), (1200, 400), (0, 0, 0), 2)
     cv2.imwrite(filename, gray)
     temp_image = Image.open(filename)
+    temp_image = pySmartIdEngine(temp_image).get_recognize('rus', 'doc', 2, 0.1 pySmartIdEngine._VERSION_)
     text = pytesseract.image_to_string(temp_image, lang='rus')
 
     return dict(zip(fields, text))
