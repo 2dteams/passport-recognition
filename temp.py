@@ -25,8 +25,8 @@ print(text)
 
 filename = "temp.jpg".format(os.getpid())
 #
-# cv2.imshow('contours', crop_gray)
-# cv2.waitKey()
+cv2.imshow('contours', crop_gray)
+cv2.waitKey()
 # cv2.destroyAllWindows()
 
 contours, hierarchy = cv2.findContours(gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)

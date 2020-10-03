@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 from PIL import Image
+from main import img2text
+import json
 
 image = Image.open('image.jpg')
 image.thumbnail((700, 700))
@@ -52,9 +54,30 @@ layout = [
 window = sg.Window('Распознавалочка', layout)
 
 while True:  # The Event Loop
+    fields = [
+        'issued_by',
+        'issues_date',
+        'department_code',
+        'series',
+        'number',
+        'surname',
+        'name',
+        'patronymic',
+        'sex',
+        'birth_date',
+        'birth_place',
+    ]
+
     event, values = window.read()
     # print(event, values) #debug
     if event in (None, 'Exit', 'Cancel'):
         break
 
-    print(event, values)
+    # text = img2text(image)
+
+    # for field in fields:
+    #     window[field].update(text[field])
+
+    if event == 'Подтвердить':
+        json.dump(dict(zip(fields, [i.strip() for i in values.values()])), open('test.json', 'w', encoding='cp1251'))
+        break
